@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Roles {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users[]
+}
+
+model Users {
+  id             String          @id @default(cuid())
+  email          String          @unique
+  password       String
+  phone          String          @unique
+  roleName       String
+  active         Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  Roles          Roles           @relation(fields: [roleName], references: [name])
+  ApiTokens      ApiTokens[]
+  Customers      Customers?
+  Administrators Administrators?
+
+}
+
+model Customers {
+  id        String    @id @default(cuid())
+  userId    String    @unique
+  name      String
+  cpf       String?   @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Address   Address[]
+  Users     Users     @relation(fields: [userId], references: [id])
+  Signups   Signups?
+
+}
+
+model Administrators {
+  id        String   @unique @default(cuid())
+  userId    String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users    @relation(fields: [userId], references: [id])
+}
+
+model Address {
+  id         String    @unique @default(cuid())
+  customerId String    @unique
+  cep        String
+  street     String
+  number     String
+  complement String?
+  district   String
+  city       String
+  uf         String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Customers  Customers @relation(fields: [customerId], references: [id])
+}
+
+model Cars {
+  id        String   @unique @default(cuid())
+  name      String
+  brand     String
+  model     String
+  year      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model ApiTokens {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Users     Users    @relation(fields: [userId], references: [id])
+}
+
+model Signups {
+  id         String    @id @default(cuid())
+  customerId String    @unique
+  token      String    @unique @default(cuid())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Customers  Customers @relation(fields: [customerId], references: [id])
+}
