@@ -1,14 +1,35 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
-
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Put, Query } from '@nestjs/common';
 import { CarsService } from './cars.service';
+import { CreateCarDto } from './dto/create-car.dto';
+import { getAllCars, registerCar } from './interfaces/cars-response.interface';
+
 
 @Controller('cars')
 export class CarsController {
   constructor(private readonly carsService: CarsService) {}
 
-  @Get('')
-  @HttpCode(200)
-  async signIn(@Body() data: any): Promise<any> {
-    return this.carsService.validateSignIn(data);
+  @Get()
+  async findAll(
+    @Query('page') page: number = 1, 
+    @Query('limit') limit: number = 10,
+    @Query('brand') brand: string, 
+    @Query('name') name: string,
+    ): Promise<getAllCars[]> {
+    return this.carsService.getAllCars(page, limit, name, brand);
+  }
+
+  @Post('')
+  async create(@Body() data: CreateCarDto): Promise<registerCar> {
+    return this.carsService.registerCar(data);
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() data: CreateCarDto): Promise<registerCar> {
+    return this.carsService.updateCar(id, data);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<registerCar> {
+    return this.carsService.deleteCar(id);
   }
 }

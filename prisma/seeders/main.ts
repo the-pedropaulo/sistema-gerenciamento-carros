@@ -111,6 +111,32 @@ async function main() {
     });
   }
 
+  for (let index = 0; index < 21; index++) {
+    await prisma.cars.createMany({
+      data: [
+        {
+          name: 'Celta',
+          brand: 'Chevrolet',
+          model: 'Sedan',
+          year: '1998',
+        },
+        {
+          name: 'Toro',
+          brand: 'Fiat',
+          model: 'Sedan',
+          year: '2012',
+        },
+        {
+          name: 'Soul',
+          brand: 'Soul',
+          model: 'Flex',
+          year: '2010',
+        }
+      ]
+    });
+    
+  }
+  
   
 
   
