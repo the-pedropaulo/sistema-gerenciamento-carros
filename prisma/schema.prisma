@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../node_modules/.prisma/client"
@@ -44,7 +41,6 @@ model Customers {
   updatedAt DateTime  @updatedAt
   Address   Address?
   Users     Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Signups   Signups?
 
 }
 
@@ -89,14 +85,6 @@ model ApiTokens {
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Users     Users    @relation(fields: [userId], references: [id])
+  Users     Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Signups {
-  id         String    @id @default(cuid())
-  customerId String    @unique
-  token      String    @unique @default(cuid())
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  Customers  Customers @relation(fields: [customerId], references: [id])
-}
