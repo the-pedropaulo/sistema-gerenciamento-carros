@@ -18,6 +18,7 @@ PostgresSQL ou Docker
 1) Dê um git clone no repositório
 2) Crie um .env com as configurações do .env.example
 3) Rode o comando "npm install"
+4) Rode o comando "npm run db:setup" -> Rodas as migrations
 4) Rode o comando "npm run build"
 5) Rode o comando "npm run start"
 
