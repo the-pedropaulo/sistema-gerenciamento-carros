@@ -7,6 +7,12 @@ NestJs CLI,
 Um gerenciador de pacotes (eg: npm, yarn, pnpm),
 PostgresSQL ou Docker
 
+*Rodar o Docker:
+
+1) Instalar o docker
+2) Na raiz do projeto, rodar "docker-compose up -d"
+3) Para parar o docker, rodar "docker-compose down"
+
 *Como iniciar a API:
 
 1) Dê um git clone no repositório
@@ -21,8 +27,8 @@ Servidor rodando...
 
 User Admin: 
 
-email:
-senha:
+email: 'vitorrbsilva@hotmail.com'
+password: 'k5fCYlmor6EXjj^&4GsZBCz1Jha1M5n'
 
 A partir desse usuário admin você poderá fazer tudo dentro do sistema. 
 
