@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { PrismaModule } from './prisma/prisma.module';
 import { CarsModule } from './cars/cars.module';
 import { ClientsModule } from './clients/clients.module';
@@ -14,7 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     CarsModule,
     ClientsModule,
     AuthModule,
-    TokenModule
+    TokenModule,
   ],
 })
 export class AppModule implements NestModule {
@@ -22,9 +27,6 @@ export class AppModule implements NestModule {
     consumer
       .apply(LoggerMiddleware)
       .exclude({ path: 'cars', method: RequestMethod.GET })
-      .forRoutes(
-        'clients',
-        'cars'
-      );
-  } 
+      .forRoutes('clients', 'cars');
+  }
 }

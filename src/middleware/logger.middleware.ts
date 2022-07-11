@@ -24,18 +24,15 @@ export class LoggerMiddleware implements NestMiddleware {
     const authHeader = req.headers.authorization;
     const bearerToken = authHeader.split(' ');
     const [, token] = bearerToken;
-
-    try {
-      const verifyToken = verify(token, 'secret');
-
-      if (verifyToken) {
-        next();
-      }
-    } catch (error) {
-      throw new HttpException(
-        'Invalid token. Provide a valid token.',
-        HttpStatus.BAD_REQUEST,
-      );
+    const verifyToken: any = verify(token, 'secret');
+          
+    if (verifyToken.roleName === 'admin') {
+      next();
+    } else {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
+
+
+    
   }
 }

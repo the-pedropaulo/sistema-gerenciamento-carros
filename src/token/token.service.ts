@@ -4,17 +4,17 @@ import { Users } from '@prisma/client';
 import { sign } from 'jsonwebtoken';
 import { generateRandomString } from '../shared/utils/generateRandomString';
 
-
 @Injectable()
 export class TokenService {
-    constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   generateAccessToken(user: Users): string {
-    const { id, email } = user;
+    const { id, email, roleName } = user;
 
     const payload = {
       sub: id,
       email,
+      roleName
     };
     const secret = this.configService.get<string>('JWT_SECRET');
     const expirationTime = this.configService.get<number>(

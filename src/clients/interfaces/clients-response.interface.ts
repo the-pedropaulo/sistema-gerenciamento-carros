@@ -1,9 +1,9 @@
 export interface getAllClients {
-    name: string,
-    cpf: string,
+  name: string;
+  cpf: string;
 }
 
 export interface registerClient {
-	status: string,
-    message: string
+  status: string;
+  message: string;
 }

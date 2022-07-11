@@ -8,6 +8,6 @@ import { TokenModule } from 'src/token/token.module';
 @Module({
   imports: [PrismaModule, ClientsModule, TokenModule],
   controllers: [AuthController],
-  providers: [AuthService]
+  providers: [AuthService],
 })
 export class AuthModule {}

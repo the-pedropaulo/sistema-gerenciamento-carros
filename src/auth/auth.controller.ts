@@ -1,10 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { CreateClientDto } from 'src/clients/dto/create-client.dto';
 import { registerClient } from 'src/clients/interfaces/clients-response.interface';
 import { UserTokens } from 'src/shared/interfaces/user-tokens.interface';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/signin-auth.dto';
-
 
 @Controller('auth')
 export class AuthController {
@@ -17,10 +16,8 @@ export class AuthController {
     return tokens;
   }
 
-
   @Post('signup')
   async signUp(@Body() data: CreateClientDto): Promise<registerClient> {
     return this.authService.signUp(data);
   }
-  
 }

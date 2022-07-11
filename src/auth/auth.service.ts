@@ -15,7 +15,7 @@ export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly clientService: ClientsService,
-    private readonly tokenService: TokenService
+    private readonly tokenService: TokenService,
   ) {}
 
   async validateSignIn(data: SignInDto): Promise<Users> {
@@ -116,6 +116,4 @@ export class AuthService {
   async signUp(data: CreateClientDto): Promise<registerClient> {
     return this.clientService.registerClient(data);
   }
-
-  
 }

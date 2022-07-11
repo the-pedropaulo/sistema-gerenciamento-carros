@@ -2,6 +2,12 @@
 /dist
 /node_modules
 
+# Environment
+.env
+
+# Docker volumes
+/data
+
 # Logs
 logs
 *.log
